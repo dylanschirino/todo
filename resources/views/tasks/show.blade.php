@@ -6,8 +6,9 @@
     <p>{{$task->body}}</p>
     <div>
         <div>
-        <a href="/tasks/{{$task->id}}/edit">Modifier cette tâche</a>
+        <a class="btn btn-warning" href="/tasks/{{$task->id}}/edit">Modifier cette tâche</a>
         </div>
+        <br>
         <p>Cette tache fait partie de la liste :
         <a href="{{ url('tasklists',$task->tasklist_id) }}">{{$task->tasklist->title}}</a>
         </p>

@@ -36,9 +36,12 @@ class TasklistsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Tasklist $tasklist)
     {
-        //
+        $tasklist->title = $request->title;
+        $tasklist->user_id = $request->user_id;
+        $tasklist->save();
+        return back();
     }
 
     /**
@@ -60,9 +63,10 @@ class TasklistsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tasklist $tasklist)
     {
-
+        $task = User::find(1)->task;
+        return view('tasklists.edit',compact('tasklist','task'));
     }
 
     /**
