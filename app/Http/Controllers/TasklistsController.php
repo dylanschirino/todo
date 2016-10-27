@@ -51,7 +51,7 @@ class TasklistsController extends Controller
     public function show(Tasklist $tasklist)
     {
         //$tasks = $tasklist->tasks; // on lui dis qu'on va utiliser la function task du modèle Tasklist
-        $tasklist->load('task');
+        $tasklist->load('tasks');
         return view('tasklists.show',compact('tasklist'));
     }
 
