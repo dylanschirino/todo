@@ -36,11 +36,9 @@ class TasklistsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Tasklist $tasklist)
+    public function store(Request $request)
     {
-        $tasklist->title = $request->title;
-        $tasklist->user_id = $request->user_id;
-        $tasklist->save();
+        Tasklist::create($request->all());
         return back();
     }
 
@@ -53,7 +51,7 @@ class TasklistsController extends Controller
     public function show(Tasklist $tasklist)
     {
         //$tasks = $tasklist->tasks; // on lui dis qu'on va utiliser la function task du modèle Tasklist
-        $tasklist->load('tasks');
+        $tasklist->load('task');
         return view('tasklists.show',compact('tasklist'));
     }
 
@@ -65,8 +63,8 @@ class TasklistsController extends Controller
      */
     public function edit(Tasklist $tasklist)
     {
-        $task = User::find(1)->task;
-        return view('tasklists.edit',compact('tasklist','task'));
+        $user = User::find(1)->owner;
+        return view('tasklists.edit',compact('tasklist','user'));
     }
 
     /**
@@ -76,9 +74,12 @@ class TasklistsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tasklist $tasklist)
     {
-        //
+        $tasklist->title = $request->title;
+        $tasklist->user_id = $request->user_id;
+        $tasklist->save();
+        return redirect()->route('tasklists.index',['id'=>$tasklist->id]);
     }
 
     /**

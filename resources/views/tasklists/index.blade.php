@@ -6,6 +6,8 @@
         @foreach($tasklists as $tasklist)
         <li class="list-group-item">
             <a href="tasklists/{{$tasklist->id}}">{{$tasklist->title}}</a>
+            <br>
+            <a href="/tasklists/{{$tasklist->id}}/edit">Modifier le nom</a>
         </li>
         @endforeach
     </ol>
