@@ -6,8 +6,21 @@
         @foreach($tasklists as $tasklist)
         <li class="list-group-item">
             <a href="tasklists/{{$tasklist->id}}">{{$tasklist->title}}</a>
-            <br>
-            <a href="/tasklists/{{$tasklist->id}}/edit">Modifier le nom</a>
+            <ul>
+                <li>
+                    <a class="btn btn-info" href="/tasklists/{{$tasklist->id}}/edit">Modifier le nom</a>
+                </li>
+                <br>
+                <li>
+                    <div>
+                        <form action="/tasklists/{{$tasklist->id}}" method="POST">
+                            {{method_field('DELETE')}}
+                            {{csrf_field()}}
+                            <button class="btn btn-danger" type="submit">Supprimer la liste de tâche</button>
+                        </form>
+                    </div>
+                </li>
+                </ul>
         </li>
         @endforeach
     </ol>

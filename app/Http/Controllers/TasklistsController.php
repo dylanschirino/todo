@@ -79,7 +79,7 @@ class TasklistsController extends Controller
         $tasklist->title = $request->title;
         $tasklist->user_id = $request->user_id;
         $tasklist->save();
-        return redirect()->route('tasklists.index',['id'=>$tasklist->id]);
+        return redirect()->route('tasklists.index');
     }
 
     /**
@@ -88,8 +88,9 @@ class TasklistsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tasklist $tasklist)
     {
-        //
+        $tasklist->delete();
+        return view('tasklists.destroy');
     }
 }
