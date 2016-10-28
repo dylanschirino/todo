@@ -38,7 +38,7 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-
+        $this->validate($request,['title'=>'required','body'=>'required']);
         // récuperer les trucs et les enregistrer
         Task::create($request->all());
         return back(); // cela va rediriger vers la page d'ou on vient
@@ -77,6 +77,7 @@ class TasksController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        $this->validate($request,['title'=>'required','body'=>'required']);
         $task->title = $request->title;
         $task->body = $request->body;
         $task->tasklist_id = $request->tasklist_id;

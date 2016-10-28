@@ -11,6 +11,15 @@
         @endforeach
     </ol>
     <h2>Ajouter une tâche à la liste:</h2>
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="/tasks" method="POST">
         {{csrf_field()}}
         <div class="form-group">
