@@ -2,6 +2,15 @@
 
 @section('content')
     <h1>Édition de la liste de tâches&nbsp;: {{$tasklist->title}}</h1>
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form action="/tasklists/{{$tasklist->id}}" method="POST">
         {{method_field('PATCH')}}
         {{csrf_field()}}

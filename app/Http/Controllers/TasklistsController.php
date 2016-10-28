@@ -38,6 +38,7 @@ class TasklistsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,['title'=>'required']);
         Tasklist::create($request->all());
         return back();
     }
@@ -76,6 +77,7 @@ class TasklistsController extends Controller
      */
     public function update(Request $request, Tasklist $tasklist)
     {
+        $this->validate($request,['title'=>'required']);
         $tasklist->title = $request->title;
         $tasklist->user_id = $request->user_id;
         $tasklist->save();

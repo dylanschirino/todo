@@ -2,6 +2,15 @@
 
 @section('content')
     <h1>Les listes des tâches de {{$user->name}}</h1>
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <ol class="list-group">
         @foreach($tasklists as $tasklist)
         <li class="list-group-item">

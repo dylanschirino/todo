@@ -38,6 +38,7 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
+
         // récuperer les trucs et les enregistrer
         Task::create($request->all());
         return back(); // cela va rediriger vers la page d'ou on vient
