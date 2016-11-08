@@ -16,7 +16,7 @@
         {{csrf_field()}}
         <div class="form-group">
             <label for="title">Titre de la liste de tâche</label>
-            <input type="text" class="form-control" name="title" id="title" value="{{$tasklist->title}}">
+            <input type="text" class="form-control" name="title" id="title" value="{{ old('title') ?? $tasklist->title}}">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Enregistrer</button>

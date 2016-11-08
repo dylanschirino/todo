@@ -16,11 +16,11 @@
         {{csrf_field()}}
         <div class="form-group">
             <label for="title">Titre de la tâche</label>
-            <input type="text" class="form-control" name="title" id="title" value="{{$task->title}}">
+            <input type="text" class="form-control" name="title" id="title" value="{{old('title') ?? $task->title}}">
         </div>
         <div class="form-group">
             <label for="body">Description de la tâche</label>
-            <textarea class="form-control" cols="30" rows="10" name="body" id="body">{{$task->body}}</textarea>
+            <textarea class="form-control" cols="30" rows="10" name="body" id="body">{{ old('body') ?? $task->body }}</textarea>
         </div>
         <div class="form-group">
             <label for="tasklist_id">Dans le liste :</label>

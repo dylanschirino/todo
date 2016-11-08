@@ -28,7 +28,7 @@
             </div>
         <div class="form-group">
             <label for="body">Description de la tâche</label>
-            <textarea class="form-control" cols="30" rows="10" name="body" id="body"></textarea>
+            <textarea class="form-control" cols="30" rows="10" name="body" id="body">{{old('body')}}</textarea>
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Enregistrer</button>

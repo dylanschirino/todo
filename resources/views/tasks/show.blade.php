@@ -16,7 +16,7 @@
             <form action="/tasks/{{$task->id}}" method="POST">
                 {{method_field('DELETE')}}
                 {{csrf_field()}}
-            <button class="btn btn-danger" type="submit">Supprimer la tâche</button>
+            <button class="btn btn-danger" type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche?')">Supprimer la tâche</button>
                 </form>
         </div>
     </div>

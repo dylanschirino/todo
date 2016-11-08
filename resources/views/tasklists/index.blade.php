@@ -25,7 +25,7 @@
                         <form action="/tasklists/{{$tasklist->id}}" method="POST">
                             {{method_field('DELETE')}}
                             {{csrf_field()}}
-                            <button class="btn btn-danger" type="submit">Supprimer la liste de tâche</button>
+                            <button class="btn btn-danger" type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cette liste de tâches?')">Supprimer la liste de tâche</button>
                         </form>
                     </div>
                 </li>
@@ -38,7 +38,7 @@
         {{csrf_field()}}
         <div class="form-group">
             <label for="title">Titre de la liste tâche</label>
-            <input type="text" class="form-control" name="title" id="title">
+            <input type="text" class="form-control" name="title" id="title" value="{{old('title')}}">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Enregistrer</button>
