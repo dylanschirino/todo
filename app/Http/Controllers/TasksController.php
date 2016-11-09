@@ -6,6 +6,7 @@ use App\Task;
 use App\Tasklist;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 
 class TasksController extends Controller
@@ -17,7 +18,8 @@ class TasksController extends Controller
      */
     public function index()
     {
-        //
+        $task=$task->tasklist;
+        return view('tasks.index',compact('task'));
     }
 
     /**
@@ -53,7 +55,11 @@ class TasksController extends Controller
     public function show(Task $task)
     {
         $task->load('tasklist');
-        return view('tasks.show',compact('task'));
+        if (Gate::allows('show-task', $task)) {
+            return view('tasks.show', compact('task'));
+        } else{
+            return "vous n'avez pas le droit d'etre ici";
+        }
     }
 
     /**
@@ -96,5 +102,9 @@ class TasksController extends Controller
     {
         $task->delete();
         return view('tasks.destroy');
+    }
+    public function confirm(Task $task)
+    {
+        return view('tasks.confirm',compact('task'));
     }
 }

@@ -1,6 +1,7 @@
-@extends('layout')
+@extends('layouts.app')
 
 @section('content')
+<div class="container">
     <h1>Les listes des tâches de {{Auth::user()->name}}</h1>
     @if (count($errors) > 0)
         <div class="alert alert-danger">
@@ -15,23 +16,20 @@
     <hr>
     <ol class="list-group">
         @foreach($tasklists as $tasklist)
-        <li class="list-group-item">
-            <ul>
-                <li>
-                    <a href="tasklists/{{$tasklist->id}}">{{$tasklist->title}}</a>
-                </li>
-                <br>
-                <li>
-                    <a class="btn btn-info" href="/tasklists/{{$tasklist->id}}/edit">Modifier le nom</a>
-                </li>
-                <br>
-                <li>
-                    <div>
+            <li class="list-group-item">
+                <a href="tasklists/{{$tasklist->id}}">{{$tasklist->title}}</a>
+                <ul>
+                    <li>
+                        <a class="btn btn-info" href="/tasklists/{{$tasklist->id}}/edit">Modifier le nom</a>
+                    </li>
+                    <br>
+                    <li>
+                        <div>
                             <a class="btn btn-danger" href="/tasklists/{{$tasklist->id}}/confirm" >Supprimer la liste de tâche</a>
-                    </div>
-                </li>
+                        </div>
+                    </li>
                 </ul>
-        </li>
+            </li>
         @endforeach
     </ol>
     <h2>Ajouter une liste de tâches:</h2>
@@ -44,5 +42,7 @@
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Enregistrer</button>
         </div>
+        <input type="hidden" name="user_id" value="{{$tasklist->user_id}}">
     </form>
     @stop
+@endsection

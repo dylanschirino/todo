@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use App\Tasklist;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class TasklistsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +23,9 @@ class TasklistsController extends Controller
      */
     public function index()
     {
-        $user = User::find(1); // on récupere l'utilisateur d'id 1
-        $tasklists = $user->tasklist; // On va récuperer la collection direct ( un super array ) qui va contenir les différentes tasklist donc en gros on récupère ce qui est dans le model
-        return view('tasklists.index',compact('tasklists','user'));
+         // on récupere l'utilisateur d'id 1
+        $tasklists = Auth::user()->tasklist; // On va récuperer la collection direct ( un super array ) qui va contenir les différentes tasklist donc en gros on récupère ce qui est dans le model
+        return view('tasklists.index',compact('tasklists'));
     }
 
     /**
@@ -39,7 +47,13 @@ class TasklistsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,['title'=>'required']);
-        Tasklist::create($request->all());
+        $user_id = Auth::id();
+        $tasklist = new Tasklist();
+        $tasklist->title = $request->title;
+        $tasklist->user_id = $user_id;
+
+        $tasklist->save();
+
         return back();
     }
 
@@ -53,7 +67,12 @@ class TasklistsController extends Controller
     {
         //$tasks = $tasklist->tasks; // on lui dis qu'on va utiliser la function task du modèle Tasklist
         $tasklist->load('tasks');
-        return view('tasklists.show',compact('tasklist'));
+        if (Gate::allows('show-tasklist', $tasklist)) {
+            return view('tasklists.show',compact('tasklist'));
+        } else {
+            return "vous n'avez pas le droit d'etre ici";
+        }
+
     }
 
     /**
@@ -94,5 +113,9 @@ class TasklistsController extends Controller
     {
         $tasklist->delete();
         return view('tasklists.destroy');
+    }
+    public function confirm(Tasklist $tasklist)
+    {
+        return view('tasklists.confirm',compact('tasklist'));
     }
 }

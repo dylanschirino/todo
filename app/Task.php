@@ -12,4 +12,10 @@ class Task extends Model
         return $this->belongsTo(Tasklist::class);
     }
 
+    public function isOwnedByUser($user){
+        $tasklist = $this->tasklist;    // On accède a l'instance tasklist
+        $user_id = $tasklist->user_id; // On récupere l'ID de l'user.
+        return $user_id == $user->id; // On fait la comparaison.
+    }
+
 }

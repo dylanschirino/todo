@@ -13,11 +13,7 @@
         <a href="{{ url('tasklists',$task->tasklist_id) }}">{{$task->tasklist->title}}</a>
         </p>
         <div>
-            <form action="/tasks/{{$task->id}}" method="POST">
-                {{method_field('DELETE')}}
-                {{csrf_field()}}
-            <button class="btn btn-danger" type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cette tâche?')">Supprimer la tâche</button>
-                </form>
+            <a class="btn btn-danger" href="/tasks/{{$task->id}}/confirm">Supprimer la tâche</a>
         </div>
     </div>
 @stop
